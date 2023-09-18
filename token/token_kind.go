@@ -11,10 +11,14 @@ const (
 	MODULO   TokenKind = "MODULO"
 	HAT      TokenKind = "HAT"
 	EQUAL    TokenKind = "EQUAL"
+	GREATER  TokenKind = "GREATER"
+	LESSER   TokenKind = "LESSER"
 
-	// // DOUBLE CHARACTER OPERATORS
-	// EQUAL_EQUAL TokenKind = "EQUAL_EQUAL"
-	// BANG_EQUAL  TokenKind = "BANG_EQUAL"
+	// DOUBLE CHARACTER OPERATORS
+	EQUAL_EQUAL   TokenKind = "EQUAL_EQUAL"
+	BANG_EQUAL    TokenKind = "BANG_EQUAL"
+	GREATER_EQUAL TokenKind = "GREATER_EQUAL"
+	LESSER_EQUAL  TokenKind = "LESSER_EQUAL"
 
 	// SEPARATORS
 	OPEN_PAREN    TokenKind = "OPEN_PAREN"

@@ -36,7 +36,7 @@ func TestReadNextChar(t *testing.T) {
 }
 
 func TestNextTokenForSingleCharToken(t *testing.T) {
-	l := New("({[%*+-^/:,=;]})")
+	l := New("({[%*+-^/:,=;]})<>")
 
 	expectedTokens := []token.Token{
 		token.New(token.OPEN_PAREN, "(", diagnostics.NewSpan(0, 1)),
@@ -55,6 +55,24 @@ func TestNextTokenForSingleCharToken(t *testing.T) {
 		token.New(token.CLOSE_BRACKET, "]", diagnostics.NewSpan(13, 14)),
 		token.New(token.CLOSE_BRACE, "}", diagnostics.NewSpan(14, 15)),
 		token.New(token.CLOSE_PAREN, ")", diagnostics.NewSpan(15, 16)),
+		token.New(token.LESSER, "<", diagnostics.NewSpan(16, 17)),
+		token.New(token.GREATER, ">", diagnostics.NewSpan(17, 18)),
+	}
+
+	for _, expected := range expectedTokens {
+		actual := l.NextToken()
+		assert.Equal(t, expected, actual)
+	}
+}
+
+func TestNextTokenForDoubleCharToken(t *testing.T) {
+	l := New("!===>=<=")
+
+	expectedTokens := []token.Token{
+		token.New(token.BANG_EQUAL, "!=", diagnostics.NewSpan(0, 2)),
+		token.New(token.EQUAL_EQUAL, "==", diagnostics.NewSpan(2, 4)),
+		token.New(token.GREATER_EQUAL, ">=", diagnostics.NewSpan(4, 6)),
+		token.New(token.LESSER_EQUAL, "<=", diagnostics.NewSpan(6, 8)),
 	}
 
 	for _, expected := range expectedTokens {

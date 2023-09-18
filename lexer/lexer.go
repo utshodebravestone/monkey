@@ -38,6 +38,14 @@ func (l *Lexer) readNextChar() {
 	l.peekPosition += 1
 }
 
+func (l *Lexer) peekChar() byte {
+	if l.peekPosition < len(l.input) {
+		return l.input[l.peekPosition]
+	} else {
+		return 0
+	}
+}
+
 func (l *Lexer) skipWhitespaces() {
 	for isWhitespace(l.currentChar) {
 		l.readNextChar()
@@ -106,8 +114,38 @@ func (l *Lexer) NextToken() token.Token {
 		tok = l.newToken(token.MODULO, startPosition, l.peekPosition)
 	case '^':
 		tok = l.newToken(token.HAT, startPosition, l.peekPosition)
+
+	case '>':
+		if l.peekChar() == '=' {
+			l.readNextChar()
+			tok = l.newToken(token.GREATER_EQUAL, startPosition, l.peekPosition)
+		} else {
+			tok = l.newToken(token.GREATER, startPosition, l.peekPosition)
+		}
+
+	case '<':
+		if l.peekChar() == '=' {
+			l.readNextChar()
+			tok = l.newToken(token.LESSER_EQUAL, startPosition, l.peekPosition)
+		} else {
+			tok = l.newToken(token.LESSER, startPosition, l.peekPosition)
+		}
+
 	case '=':
-		tok = l.newToken(token.EQUAL, startPosition, l.peekPosition)
+		if l.peekChar() == '=' {
+			l.readNextChar()
+			tok = l.newToken(token.EQUAL_EQUAL, startPosition, l.peekPosition)
+		} else {
+			tok = l.newToken(token.EQUAL, startPosition, l.peekPosition)
+		}
+
+	case '!':
+		if l.peekChar() == '=' {
+			l.readNextChar()
+			tok = l.newToken(token.BANG_EQUAL, startPosition, l.peekPosition)
+		} else {
+			tok = l.newToken(token.ILLEGAL, startPosition, l.peekPosition)
+		}
 
 	case '(':
 		tok = l.newToken(token.OPEN_PAREN, startPosition, l.peekPosition)

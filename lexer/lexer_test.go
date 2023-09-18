@@ -98,11 +98,13 @@ func TestNextTokenForKeywords(t *testing.T) {
 }
 
 func TestNextTokenForLiterals(t *testing.T) {
-	l := New("a11")
+	l := New("a99\"valid\"\"!valid")
 
 	expectedTokens := []token.Token{
 		token.New(token.IDENTIFIER, "a", diagnostics.NewSpan(0, 1)),
-		token.New(token.NUMBER, "11", diagnostics.NewSpan(1, 3)),
+		token.New(token.NUMBER, "99", diagnostics.NewSpan(1, 3)),
+		token.New(token.STRING, "\"valid\"", diagnostics.NewSpan(3, 10)),
+		token.New(token.ILLEGAL, "\"!valid", diagnostics.NewSpan(10, 17)),
 	}
 
 	for _, expected := range expectedTokens {

@@ -56,6 +56,20 @@ func (l *Lexer) readNumber() {
 	}
 }
 
+// the returned value indicates whether the string was terminated or not
+func (l *Lexer) readString() bool {
+	l.readNextChar() // skipping the opening quote
+	for l.currentChar != '"' && l.peekPosition < len(l.input) {
+		l.readNextChar()
+	}
+	if l.currentChar == '"' {
+		l.readNextChar() // skipping the closing quote
+		return true
+	} else {
+		return false
+	}
+}
+
 func isWhitespace(char byte) bool {
 	return char == ' ' || char == '\t' || char == '\n'
 }
@@ -126,6 +140,13 @@ func (l *Lexer) NextToken() token.Token {
 		} else if isDigit(l.currentChar) {
 			l.readNumber()
 			return l.newToken(token.NUMBER, startPosition, l.readPosition)
+		} else if l.currentChar == '"' {
+			if l.readString() {
+				return l.newToken(token.STRING, startPosition, l.readPosition)
+			} else {
+				// using peek position cz read string doesn't read the last char
+				return l.newToken(token.ILLEGAL, startPosition, l.peekPosition)
+			}
 		} else {
 			tok = l.newToken(token.ILLEGAL, startPosition, l.peekPosition)
 		}

@@ -24,8 +24,8 @@ const (
 	SEMICOLON     TokenKind = "SEMICOLON"
 
 	// LITERALS
-	NUMBER TokenKind = "NUMBER"
-	// STRING     TokenKind = "STRING"
+	NUMBER     TokenKind = "NUMBER"
+	STRING     TokenKind = "STRING"
 	IDENTIFIER TokenKind = "IDENTIFIER"
 
 	// KEYWORDS

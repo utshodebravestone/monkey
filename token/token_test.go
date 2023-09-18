@@ -15,3 +15,29 @@ func TestToString(t *testing.T) {
 
 	assert.Equal(t, expected, actual)
 }
+
+func TestLookupKeyword(t *testing.T) {
+	expected := []TokenKind{
+		TRUE,
+		FALSE,
+		LET,
+		FUN,
+		RET,
+		IF,
+		ELSE,
+		IDENTIFIER,
+	}
+
+	actual := []TokenKind{
+		LookupKeyword("true"),
+		LookupKeyword("false"),
+		LookupKeyword("let"),
+		LookupKeyword("fun"),
+		LookupKeyword("ret"),
+		LookupKeyword("if"),
+		LookupKeyword("else"),
+		LookupKeyword("whatever"),
+	}
+
+	assert.Equal(t, expected, actual)
+}

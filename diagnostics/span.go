@@ -3,10 +3,10 @@ package diagnostics
 import "fmt"
 
 type Span struct {
-	Start, End uint
+	Start, End int
 }
 
-func NewSpan(start, end uint) Span {
+func NewSpan(start, end int) Span {
 	return Span{
 		Start: start,
 		End:   end,

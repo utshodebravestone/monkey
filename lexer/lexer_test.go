@@ -35,45 +35,7 @@ func TestReadNextChar(t *testing.T) {
 	assert.Equal(t, expected, actual)
 }
 
-func TestGetCurrentLexeme(t *testing.T) {
-	l := New("~>")
-
-	// Iteration 1
-	expected := "~"
-
-	actual := l.getCurrentLexeme()
-
-	assert.Equal(t, expected, actual)
-
-	// Iteration 2
-	expected = ">"
-
-	l.readNextChar()
-	actual = l.getCurrentLexeme()
-
-	assert.Equal(t, expected, actual)
-}
-
-func TestGetCurrentSpan(t *testing.T) {
-	l := New("~>")
-
-	// Iteration 1
-	expected := diagnostics.NewSpan(0, 1)
-
-	actual := l.getCurrentSpan()
-
-	assert.Equal(t, expected, actual)
-
-	// Iteration 2
-	expected = diagnostics.NewSpan(1, 2)
-
-	l.readNextChar()
-	actual = l.getCurrentSpan()
-
-	assert.Equal(t, expected, actual)
-}
-
-func TestNextToken(t *testing.T) {
+func TestNextTokenForSingleCharToken(t *testing.T) {
 	l := New("({[%*+-^/!,=;]})")
 
 	expectedTokens := []token.Token{
@@ -93,6 +55,40 @@ func TestNextToken(t *testing.T) {
 		token.New(token.CLOSE_BRACKET, "]", diagnostics.NewSpan(13, 14)),
 		token.New(token.CLOSE_BRACE, "}", diagnostics.NewSpan(14, 15)),
 		token.New(token.CLOSE_PAREN, ")", diagnostics.NewSpan(15, 16)),
+	}
+
+	for _, expected := range expectedTokens {
+		actual := l.NextToken()
+		assert.Equal(t, expected, actual)
+	}
+}
+
+func TestNextTokenWithSpace(t *testing.T) {
+	l := New("* ^")
+
+	expectedTokens := []token.Token{
+		token.New(token.ASTERISK, "*", diagnostics.NewSpan(0, 1)),
+		token.New(token.HAT, "^", diagnostics.NewSpan(2, 3)),
+	}
+
+	for _, expected := range expectedTokens {
+		actual := l.NextToken()
+		assert.Equal(t, expected, actual)
+	}
+}
+
+func TestNextTokenForKeywords(t *testing.T) {
+	l := New("true false let fun ret if else duh")
+
+	expectedTokens := []token.Token{
+		token.New(token.TRUE, "true", diagnostics.NewSpan(0, 4)),
+		token.New(token.FALSE, "false", diagnostics.NewSpan(5, 10)),
+		token.New(token.LET, "let", diagnostics.NewSpan(11, 14)),
+		token.New(token.FUN, "fun", diagnostics.NewSpan(15, 18)),
+		token.New(token.RET, "ret", diagnostics.NewSpan(19, 22)),
+		token.New(token.IF, "if", diagnostics.NewSpan(23, 25)),
+		token.New(token.ELSE, "else", diagnostics.NewSpan(26, 30)),
+		token.New(token.IDENTIFIER, "duh", diagnostics.NewSpan(31, 34)),
 	}
 
 	for _, expected := range expectedTokens {

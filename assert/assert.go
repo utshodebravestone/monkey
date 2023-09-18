@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-func Equal[T any](t *testing.T, a, b T) {
-	if !reflect.DeepEqual(a, b) {
-		t.Fatalf("Assertion Failed: <a> is not equal to <b>\n\twhere\n\t\ta is -> %v,\n\t\tb is -> %v", a, b)
+func Equal[T any](t *testing.T, expected, actual T) {
+	if !reflect.DeepEqual(expected, actual) {
+		t.Fatalf("Assertion Failed: <expected> is not equal to <actual>\n\twhere\n\t\texpected is \t:\t %v,\n\t\tactual is \t:\t %v", expected, actual)
 	}
 }

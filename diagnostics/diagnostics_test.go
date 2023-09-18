@@ -1,27 +1,26 @@
-package diagnostics_test
+package diagnostics
 
 import (
 	"testing"
 
 	"monkey/assert"
-	"monkey/diagnostics"
 )
 
 func TestToString(t *testing.T) {
 	expected := "0:1"
 
-	span := diagnostics.NewSpan(0, 1)
+	span := NewSpan(0, 1)
 	actual := span.ToString()
 
 	assert.Equal(t, expected, actual)
 }
 
 func TestExtendSpan(t *testing.T) {
-	expected := diagnostics.NewSpan(0, 2)
+	expected := NewSpan(0, 2)
 
-	span_a := diagnostics.NewSpan(0, 1)
-	span_b := diagnostics.NewSpan(1, 2)
-	actual := diagnostics.ExtentSpan(span_a, span_b)
+	span_a := NewSpan(0, 1)
+	span_b := NewSpan(1, 2)
+	actual := ExtentSpan(span_a, span_b)
 
 	assert.Equal(t, expected, actual)
 }

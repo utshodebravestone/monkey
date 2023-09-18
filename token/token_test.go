@@ -1,18 +1,17 @@
-package token_test
+package token
 
 import (
 	"testing"
 
 	"monkey/assert"
 	"monkey/diagnostics"
-	"monkey/token"
 )
 
 func TestToString(t *testing.T) {
 	expected := "Token `~` of Type ILLEGAL in 0:1"
 
-	token := token.New(token.ILLEGAL, "~", diagnostics.NewSpan(0, 1))
-	actual := token.ToString()
+	tok := New(ILLEGAL, "~", diagnostics.NewSpan(0, 1))
+	actual := tok.ToString()
 
 	assert.Equal(t, expected, actual)
 }

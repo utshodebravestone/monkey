@@ -97,6 +97,20 @@ func TestNextTokenForKeywords(t *testing.T) {
 	}
 }
 
+func TestNextTokenForLiterals(t *testing.T) {
+	l := New("a11")
+
+	expectedTokens := []token.Token{
+		token.New(token.IDENTIFIER, "a", diagnostics.NewSpan(0, 1)),
+		token.New(token.NUMBER, "11", diagnostics.NewSpan(1, 3)),
+	}
+
+	for _, expected := range expectedTokens {
+		actual := l.NextToken()
+		assert.Equal(t, expected, actual)
+	}
+}
+
 func TestNextTokenWithIllegal(t *testing.T) {
 	l := New("~")
 

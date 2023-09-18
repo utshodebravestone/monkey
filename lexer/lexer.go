@@ -106,8 +106,6 @@ func (l *Lexer) NextToken() token.Token {
 		tok = l.newToken(token.MODULO, startPosition, l.peekPosition)
 	case '^':
 		tok = l.newToken(token.HAT, startPosition, l.peekPosition)
-	case '!':
-		tok = l.newToken(token.BANG, startPosition, l.peekPosition)
 	case '=':
 		tok = l.newToken(token.EQUAL, startPosition, l.peekPosition)
 
@@ -123,6 +121,8 @@ func (l *Lexer) NextToken() token.Token {
 		tok = l.newToken(token.OPEN_BRACKET, startPosition, l.peekPosition)
 	case ']':
 		tok = l.newToken(token.CLOSE_BRACKET, startPosition, l.peekPosition)
+	case ':':
+		tok = l.newToken(token.COLON, startPosition, l.peekPosition)
 	case ',':
 		tok = l.newToken(token.COMMA, startPosition, l.peekPosition)
 	case ';':

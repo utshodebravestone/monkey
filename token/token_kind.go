@@ -10,8 +10,11 @@ const (
 	SLASH    TokenKind = "SLASH"
 	MODULO   TokenKind = "MODULO"
 	HAT      TokenKind = "HAT"
-	BANG     TokenKind = "BANG"
 	EQUAL    TokenKind = "EQUAL"
+
+	// // DOUBLE CHARACTER OPERATORS
+	// EQUAL_EQUAL TokenKind = "EQUAL_EQUAL"
+	// BANG_EQUAL  TokenKind = "BANG_EQUAL"
 
 	// SEPARATORS
 	OPEN_PAREN    TokenKind = "OPEN_PAREN"
@@ -20,6 +23,7 @@ const (
 	CLOSE_BRACE   TokenKind = "CLOSE_BRACE"
 	OPEN_BRACKET  TokenKind = "OPEN_BRACKET"
 	CLOSE_BRACKET TokenKind = "CLOSE_BRACKET"
+	COLON         TokenKind = "COLON"
 	COMMA         TokenKind = "COMMA"
 	SEMICOLON     TokenKind = "SEMICOLON"
 
@@ -36,6 +40,9 @@ const (
 	RET   TokenKind = "RET"
 	IF    TokenKind = "IF"
 	ELSE  TokenKind = "ELSE"
+	NOT   TokenKind = "NOT"
+	AND   TokenKind = "AND"
+	OR    TokenKind = "OR"
 
 	// SPECIAL TOKENS
 	ILLEGAL TokenKind = "ILLEGAL"
@@ -50,6 +57,9 @@ var keywords = map[string]TokenKind{
 	"ret":   RET,
 	"if":    IF,
 	"else":  ELSE,
+	"not":   NOT,
+	"and":   AND,
+	"or":    OR,
 }
 
 func LookupKeyword(lexeme string) TokenKind {

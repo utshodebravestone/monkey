@@ -36,7 +36,7 @@ func TestReadNextChar(t *testing.T) {
 }
 
 func TestNextTokenForSingleCharToken(t *testing.T) {
-	l := New("({[%*+-^/!,=;]})")
+	l := New("({[%*+-^/:,=;]})")
 
 	expectedTokens := []token.Token{
 		token.New(token.OPEN_PAREN, "(", diagnostics.NewSpan(0, 1)),
@@ -48,7 +48,7 @@ func TestNextTokenForSingleCharToken(t *testing.T) {
 		token.New(token.MINUS, "-", diagnostics.NewSpan(6, 7)),
 		token.New(token.HAT, "^", diagnostics.NewSpan(7, 8)),
 		token.New(token.SLASH, "/", diagnostics.NewSpan(8, 9)),
-		token.New(token.BANG, "!", diagnostics.NewSpan(9, 10)),
+		token.New(token.COLON, ":", diagnostics.NewSpan(9, 10)),
 		token.New(token.COMMA, ",", diagnostics.NewSpan(10, 11)),
 		token.New(token.EQUAL, "=", diagnostics.NewSpan(11, 12)),
 		token.New(token.SEMICOLON, ";", diagnostics.NewSpan(12, 13)),
@@ -78,7 +78,7 @@ func TestNextTokenWithSpace(t *testing.T) {
 }
 
 func TestNextTokenForKeywords(t *testing.T) {
-	l := New("true false let fun ret if else duh")
+	l := New("true false let fun ret if else not and or duh")
 
 	expectedTokens := []token.Token{
 		token.New(token.TRUE, "true", diagnostics.NewSpan(0, 4)),
@@ -88,7 +88,10 @@ func TestNextTokenForKeywords(t *testing.T) {
 		token.New(token.RET, "ret", diagnostics.NewSpan(19, 22)),
 		token.New(token.IF, "if", diagnostics.NewSpan(23, 25)),
 		token.New(token.ELSE, "else", diagnostics.NewSpan(26, 30)),
-		token.New(token.IDENTIFIER, "duh", diagnostics.NewSpan(31, 34)),
+		token.New(token.NOT, "not", diagnostics.NewSpan(31, 34)),
+		token.New(token.AND, "and", diagnostics.NewSpan(35, 38)),
+		token.New(token.OR, "or", diagnostics.NewSpan(39, 41)),
+		token.New(token.IDENTIFIER, "duh", diagnostics.NewSpan(42, 45)),
 	}
 
 	for _, expected := range expectedTokens {

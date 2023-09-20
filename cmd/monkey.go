@@ -13,7 +13,7 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Printf("welcome to the monkey programming language\n")
 	for {
-		fmt.Print("input :> ")
+		fmt.Print("::> ")
 		input, err := reader.ReadString('\n')
 		if err != nil {
 			panic(err)

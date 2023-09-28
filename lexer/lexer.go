@@ -1,7 +1,7 @@
 package lexer
 
 import (
-	"monkey/diagnostics"
+	"monkey/text"
 	"monkey/token"
 )
 
@@ -91,7 +91,7 @@ func isDigit(char byte) bool {
 }
 
 func (l *Lexer) newToken(kind token.TokenKind, startPosition int, endPosition int) token.Token {
-	return token.New(kind, l.input[startPosition:endPosition], diagnostics.NewSpan(startPosition, endPosition))
+	return token.New(kind, l.input[startPosition:endPosition], text.NewSpan(startPosition, endPosition))
 }
 
 func (l *Lexer) NextToken() token.Token {
@@ -168,7 +168,7 @@ func (l *Lexer) NextToken() token.Token {
 
 	// since this token doesn't live in the actual input, we have to provide a handmade lexeme
 	case 0:
-		tok = token.New(token.EOF, "0", diagnostics.NewSpan(startPosition, l.peekPosition))
+		tok = token.New(token.EOF, "0", text.NewSpan(startPosition, l.peekPosition))
 
 	default:
 		if isLetter(l.currentChar) {

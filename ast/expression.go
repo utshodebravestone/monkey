@@ -1,7 +1,7 @@
 package ast
 
 import (
-	"monkey/diagnostics"
+	"monkey/text"
 	"monkey/token"
 )
 
@@ -16,7 +16,7 @@ type IdentifierExpression struct {
 
 func (ie *IdentifierExpression) expression() {}
 
-func (ie *IdentifierExpression) Span() diagnostics.Span {
+func (ie *IdentifierExpression) Span() text.Span {
 	return ie.Token.Span
 }
 

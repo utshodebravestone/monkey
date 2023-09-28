@@ -3,7 +3,7 @@ package ast
 import (
 	"fmt"
 
-	"monkey/diagnostics"
+	"monkey/text"
 	"monkey/token"
 )
 
@@ -20,8 +20,8 @@ type LetStatement struct {
 
 func (ls *LetStatement) statement() {}
 
-func (ls *LetStatement) Span() diagnostics.Span {
-	return diagnostics.ExtentSpan(ls.Token.Span, ls.Value.Span())
+func (ls *LetStatement) Span() text.Span {
+	return text.ExtentSpan(ls.Token.Span, ls.Value.Span())
 }
 
 func (ls *LetStatement) ToString() string {
@@ -35,8 +35,8 @@ type ReturnStatement struct {
 
 func (rs *ReturnStatement) statement() {}
 
-func (rs *ReturnStatement) Span() diagnostics.Span {
-	return diagnostics.ExtentSpan(rs.Token.Span, rs.Value.Span())
+func (rs *ReturnStatement) Span() text.Span {
+	return text.ExtentSpan(rs.Token.Span, rs.Value.Span())
 }
 
 func (rs *ReturnStatement) ToString() string {

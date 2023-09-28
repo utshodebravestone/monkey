@@ -3,16 +3,16 @@ package token
 import (
 	"fmt"
 
-	"monkey/diagnostics"
+	"monkey/text"
 )
 
 type Token struct {
 	Kind   TokenKind
 	Lexeme string
-	Span   diagnostics.Span
+	Span   text.Span
 }
 
-func New(kind TokenKind, lexeme string, span diagnostics.Span) Token {
+func New(kind TokenKind, lexeme string, span text.Span) Token {
 	return Token{
 		Kind:   kind,
 		Lexeme: lexeme,

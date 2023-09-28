@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"monkey/assert"
-	"monkey/diagnostics"
+	"monkey/text"
 	"monkey/token"
 )
 
@@ -13,7 +13,7 @@ func TestIdentifierExpressionToString(t *testing.T) {
 		Token: token.Token{
 			Kind:   token.IDENTIFIER,
 			Lexeme: "foo",
-			Span:   diagnostics.Span{}, // don't care about span since it was tested on lexer
+			Span:   text.Span{}, // don't care about span since it was tested on lexer
 		},
 	}
 
@@ -29,20 +29,20 @@ func TestLetStatementToString(t *testing.T) {
 		Token: token.Token{
 			Kind:   token.LET,
 			Lexeme: "let",
-			Span:   diagnostics.Span{}, // don't care about span since it was tested on lexer
+			Span:   text.Span{}, // don't care about span since it was tested on lexer
 		},
 		Name: &IdentifierExpression{
 			Token: token.Token{
 				Kind:   token.IDENTIFIER,
 				Lexeme: "foo",
-				Span:   diagnostics.Span{}, // don't care about span since it was tested on lexer
+				Span:   text.Span{}, // don't care about span since it was tested on lexer
 			},
 		},
 		Value: &IdentifierExpression{
 			Token: token.Token{
 				Kind:   token.IDENTIFIER,
 				Lexeme: "bar",
-				Span:   diagnostics.Span{}, // don't care about span since it was tested on lexer
+				Span:   text.Span{}, // don't care about span since it was tested on lexer
 			},
 		},
 	}
@@ -59,13 +59,13 @@ func TestReturnStatementToString(t *testing.T) {
 		Token: token.Token{
 			Kind:   token.RET,
 			Lexeme: "ret",
-			Span:   diagnostics.Span{}, // don't care about span since it was tested on lexer
+			Span:   text.Span{}, // don't care about span since it was tested on lexer
 		},
 		Value: &IdentifierExpression{
 			Token: token.Token{
 				Kind:   token.IDENTIFIER,
 				Lexeme: "foo",
-				Span:   diagnostics.Span{}, // don't care about span since it was tested on lexer
+				Span:   text.Span{}, // don't care about span since it was tested on lexer
 			},
 		},
 	}

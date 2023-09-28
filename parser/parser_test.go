@@ -1,7 +1,9 @@
 package parser
 
 import (
+	"fmt"
 	"monkey/assert"
+	"monkey/errors"
 	"monkey/lexer"
 	"monkey/token"
 	"testing"
@@ -48,4 +50,21 @@ func TestParseLetStatement(t *testing.T) {
 	assert.Equal(t, token.LET, actual.Token.Kind)
 	assert.Equal(t, token.IDENTIFIER, actual.Name.Token.Kind)
 	assert.Equal(t, "foo", actual.Name.Token.Lexeme)
+}
+
+func TestParseLetStatementFailure(t *testing.T) {
+	input := `let foo bar;`
+
+	l := lexer.New(input)
+	p := New(l)
+
+	actual := p.parseLetStatement()
+
+	assert.Equal(t, nil, actual)
+
+	expected := []errors.ParseError{
+		errors.NewParseError(fmt.Sprintf("expected the token to be %s, but got %s instead", token.EQUAL, token.IDENTIFIER), p.peekToken.Span),
+	}
+
+	assert.Equal(t, p.Errors(), expected)
 }

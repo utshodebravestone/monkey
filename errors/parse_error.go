@@ -1,4 +1,4 @@
-package error
+package errors
 
 import (
 	"fmt"
@@ -9,6 +9,13 @@ import (
 type ParseError struct {
 	message string
 	span    text.Span
+}
+
+func NewParseError(message string, span text.Span) ParseError {
+	return ParseError{
+		message: message,
+		span:    span,
+	}
 }
 
 func (pe *ParseError) Message() string {

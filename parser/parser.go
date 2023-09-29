@@ -20,13 +20,13 @@ type Parser struct {
 func New(l *lexer.Lexer) *Parser {
 	p := &Parser{l: l}
 
-	p.nextToken() // loading currentToken
-	p.nextToken() // loading peekToken
+	p.readNextToken() // loading currentToken
+	p.readNextToken() // loading peekToken
 
 	return p
 }
 
-func (p *Parser) nextToken() {
+func (p *Parser) readNextToken() {
 	p.currentToken = p.peekToken
 	p.peekToken = p.l.NextToken()
 }
@@ -41,7 +41,7 @@ func (p *Parser) peekTokenIs(kind token.TokenKind) bool {
 
 func (p *Parser) expectPeek(kind token.TokenKind) bool {
 	if p.peekTokenIs(kind) {
-		p.nextToken()
+		p.readNextToken()
 		return true
 	} else {
 		p.errors = append(p.errors, errors.NewParseError(fmt.Sprintf("expected the token to be %s, but got %s instead", kind, p.peekToken.Kind), p.peekToken.Span))
@@ -75,7 +75,7 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
 	}
 
 	for !p.currentTokenIs(token.SEMICOLON) {
-		p.nextToken()
+		p.readNextToken()
 	}
 
 	return stmt
@@ -91,6 +91,7 @@ func (p *Parser) ParseProgram() *ast.Program {
 		if stmt != nil {
 			program.Statements = append(program.Statements, stmt)
 		}
+		p.readNextToken()
 	}
 
 	return program

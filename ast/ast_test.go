@@ -47,7 +47,7 @@ func TestLetStatementToString(t *testing.T) {
 		},
 	}
 
-	expected := "let foo = bar"
+	expected := "let foo = bar;"
 
 	actual := ls.ToString()
 
@@ -70,7 +70,7 @@ func TestReturnStatementToString(t *testing.T) {
 		},
 	}
 
-	expected := "ret foo"
+	expected := "ret foo;"
 
 	actual := ls.ToString()
 

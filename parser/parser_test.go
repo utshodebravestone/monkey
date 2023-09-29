@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-func TestNextToken(t *testing.T) {
+func TestReadNextToken(t *testing.T) {
 	input := `foo 1`
 
 	l := lexer.New(input)
@@ -18,7 +18,7 @@ func TestNextToken(t *testing.T) {
 	assert.Equal(t, p.currentToken.Kind, token.IDENTIFIER)
 	assert.Equal(t, p.currentToken.Lexeme, "foo")
 
-	p.nextToken()
+	p.readNextToken()
 
 	assert.Equal(t, p.currentToken.Kind, token.NUMBER)
 	assert.Equal(t, p.currentToken.Lexeme, "1")
@@ -67,4 +67,15 @@ func TestParseLetStatementFailure(t *testing.T) {
 	}
 
 	assert.Equal(t, p.Errors(), expected)
+}
+
+func TestParseProgram(t *testing.T) {
+	input := `let foo = bar;`
+
+	l := lexer.New(input)
+	p := New(l)
+
+	actual := p.ParseProgram()
+
+	assert.Equal(t, len(actual.Statements), 1)
 }

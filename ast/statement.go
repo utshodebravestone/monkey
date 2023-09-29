@@ -25,7 +25,11 @@ func (ls *LetStatement) Span() text.Span {
 }
 
 func (ls *LetStatement) ToString() string {
-	return fmt.Sprintf("%s %s = %s", ls.Token.Lexeme, ls.Name.ToString(), ls.Value.ToString())
+	if ls.Value != nil {
+		return fmt.Sprintf("%s %s = %s;", ls.Token.Lexeme, ls.Name.ToString(), ls.Value.ToString())
+	} else {
+		return fmt.Sprintf("%s %s;", ls.Token.Lexeme, ls.Name.ToString())
+	}
 }
 
 type ReturnStatement struct {
@@ -40,5 +44,5 @@ func (rs *ReturnStatement) Span() text.Span {
 }
 
 func (rs *ReturnStatement) ToString() string {
-	return fmt.Sprintf("%s %s", rs.Token.Lexeme, rs.Value.ToString())
+	return fmt.Sprintf("%s %s;", rs.Token.Lexeme, rs.Value.ToString())
 }

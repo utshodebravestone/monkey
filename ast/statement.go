@@ -44,5 +44,9 @@ func (rs *ReturnStatement) Span() text.Span {
 }
 
 func (rs *ReturnStatement) ToString() string {
-	return fmt.Sprintf("%s %s;", rs.Token.Lexeme, rs.Value.ToString())
+	if rs.Value != nil {
+		return fmt.Sprintf("%s %s;", rs.Token.Lexeme, rs.Value.ToString())
+	} else {
+		return fmt.Sprintf("%s;", rs.Token.Lexeme)
+	}
 }

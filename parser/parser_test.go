@@ -52,6 +52,17 @@ func TestParseLetStatement(t *testing.T) {
 	assert.Equal(t, "foo", actual.Name.Token.Lexeme)
 }
 
+func TestParseRetStatement(t *testing.T) {
+	input := `ret foo;`
+
+	l := lexer.New(input)
+	p := New(l)
+
+	actual := p.parseRetStatement()
+
+	assert.Equal(t, token.RET, actual.Token.Kind)
+}
+
 func TestParseLetStatementFailure(t *testing.T) {
 	input := `let foo bar;`
 
